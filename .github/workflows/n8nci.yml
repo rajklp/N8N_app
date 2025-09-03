@@ -1,0 +1,28 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+name: CI n8n
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # … your build / test steps …
+
+      - name: Gate: artifact completeness
+        run: |
+          curl -sS -X POST "https://wliteck.app.n8n.cloud/webhook/ci-artifact-gate" \
+            -H "Content-Type: application/json" \
+            -d '{"release_version":"'"${{ steps.meta.outputs.release_version }}"'","commit_sha":"'"${{ github.sha }}"'}'
+        env:
+          N8N_URL: ${{ secrets.N8N_URL }}
