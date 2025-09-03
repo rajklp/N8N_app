@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: macos-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,9 +23,4 @@ jobs:
         run: |
           curl -sS -X POST "$N8N_URL" \
             -H "Content-Type: application/json" \
-            -d @- <<'EOF'
-          {
-            "release_version": "${{ steps.meta.outputs.release_version }}",
-            "commit_sha": "${{ github.sha }}"
-          }
-          EOF
+            -d "{\"release_version\":\"${{ steps.meta.outputs.release_version }}\",\"commit_sha\":\"${{ github.sha }}\"}"
