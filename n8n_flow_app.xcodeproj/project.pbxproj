@@ -10,6 +10,10 @@
 		E187E2E62E57247800CF0D3D /* n8n_flow_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = n8n_flow_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXBuildFile section */
+		E10B90B52EC4AD8200B88822 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = E10B90B42EC4AD8200B88822 /* Sentry */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		E187E2F82E57247A00CF0D3D /* Exceptions for "n8n_flow_app" folder in "n8n_flow_app" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E10B90B52EC4AD8200B88822 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = n8n_flow_app;
 			packageProductDependencies = (
+				E10B90B42EC4AD8200B88822 /* Sentry */,
 			);
 			productName = n8n_flow_app;
 			productReference = E187E2E62E57247800CF0D3D /* n8n_flow_app.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = E187E2DD2E57247800CF0D3D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E10B90B32EC4AD8200B88822 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E187E2E72E57247800CF0D3D /* Products */;
 			projectDirPath = "";
@@ -333,6 +342,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E10B90B32EC4AD8200B88822 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.57.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E10B90B42EC4AD8200B88822 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E10B90B32EC4AD8200B88822 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E187E2DE2E57247800CF0D3D /* Project object */;
 }
