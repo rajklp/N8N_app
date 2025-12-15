@@ -1,26 +1,75 @@
-name: CI n8n
+name: Build Time Analyzer
 
+# 1. WHEN TO RUN: This workflow runs when code is pushed to the 'main' branch
+# or when a Pull Request is opened/updated against 'main'.
 on:
-  pull_request:
-    branches: [ main ]
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
+# A workflow can have one or more jobs. This is our main build job.
 jobs:
-  build:
-    runs-on: macos-latest
+  analyze_build:
+    # 2. WHERE TO RUN: The job runs on a fresh Ubuntu virtual machine
+    runs-on: ubuntu-latest
+    
+    # Define variables accessible throughout the job
+    env:
+      # This variable holds the secret Webhook URL we created in Step 2
+      N8N_WEBHOOK_URL: ${{ secrets.N8N_BUILD_WEBHOOK }}
+
+    # The tasks (steps) this job will perform
     steps:
-      - name: Checkout
+      # Step 1: Check out the repository code
+      - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Extract release version
-        id: meta
-        run: echo "release_version=0.1.0-test" >> "$GITHUB_OUTPUT"
-
-      - name: Gate: artifact completeness
-        env:
-          N8N_URL: ${{ secrets.N8N_URL }}
+      
+      # Step 2: Run Your Build and Generate JSON Log
+      # ⚠️ IMPORTANT: You MUST replace the 'cat << EOF...' command below with 
+      # the actual commands that run your project's build and convert the output 
+      # into the JSON structure expected by the n8n 'Parse Logs & Analyze' node.
+      - name: Run Build and Collect Logs (Placeholder)
         run: |
-          curl -sS -X POST "$N8N_URL" \
-            -H "Content-Type: application/json" \
-            -d "{\"release_version\":\"${{ steps.meta.outputs.release_version }}\",\"commit_sha\":\"${{ github.sha }}\"}"
+          echo "Starting the build process..."
+          
+          # --- Placeholder for your actual build command (e.g., ./gradlew build) ---
+          
+          # This creates the 'build-data.json' file for n8n.
+          # You will need to dynamically insert your actual build metrics here.
+          cat << EOF > build-data.json
+{
+  "buildId": "${{ github.run_id }}",
+  "prNumber": "${{ github.event.pull_request.number || 'N/A' }}",
+  "repository": "${{ github.repository }}",
+  "branch": "${{ github.head_ref || github.ref_name }}",
+  "commit": "${{ github.sha }}",
+  "totalDuration": 40000,
+  "gradle": {
+    "tasks": [
+      {"module": "app:module-main", "duration": 25000, "notCacheable": false},
+      {"module": "library:utility", "duration": 10000, "notCacheable": false},
+      {"module": "test-data", "duration": 5000, "notCacheable": true}
+    ]
+  },
+  "cocoapods": {
+    "pods": []
+  }
+}
+EOF
+          echo "Finished generating build-data.json"
+
+      # Step 3: Send the JSON data to the n8n Webhook
+      - name: Send Build Data to n8n Hotspot Tracker
+        # 'if: always()' ensures this step runs even if the previous step failed, 
+        # allowing n8n to log the failure (if your JSON creation script handles errors).
+        if: always()
+        run: |
+          if [ -f build-data.json ]; then
+            curl -X POST "$N8N_WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d @build-data.json
+            echo "Data sent successfully to n8n."
+          else
+            echo "Error: build-data.json not found. Check previous step for failures."
+          fi

@@ -6,13 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		E187E2E62E57247800CF0D3D /* n8n_flow_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = n8n_flow_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
-
 /* Begin PBXBuildFile section */
 		E10B90B52EC4AD8200B88822 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = E10B90B42EC4AD8200B88822 /* Sentry */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E187E2E62E57247800CF0D3D /* n8n_flow_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = n8n_flow_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		E187E2F82E57247A00CF0D3D /* Exceptions for "n8n_flow_app" folder in "n8n_flow_app" target */ = {
@@ -165,7 +165,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.n8n-flow-app.n8n-flow-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -192,7 +192,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.n8n-flow-app.n8n-flow-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
