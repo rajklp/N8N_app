@@ -38,25 +38,25 @@ jobs:
           # This creates the 'build-data.json' file for n8n.
           # The JSON content below MUST be left-aligned (no leading spaces) to work correctly with 'cat << EOF'.
           cat << EOF > build-data.json
-{
-"buildId": "${{ github.run_id }}",
-"prNumber": "${{ github.event.pull_request.number || 'N/A' }}",
-"repository": "${{ github.repository }}",
-"branch": "${{ github.head_ref || github.ref_name }}",
-"commit": "${{ github.sha }}",
-"totalDuration": 40000,
-"gradle": {
-  "tasks": [
-    {"module": "app:module-main", "duration": 25000, "notCacheable": false},
-    {"module": "library:utility", "duration": 10000, "notCacheable": false},
-    {"module": "test-data", "duration": 5000, "notCacheable": true}
-  ]
-},
-"cocoapods": {
-  "pods": []
-}
-}
-EOF
+          {
+          "buildId": "${{ github.run_id }}",
+          "prNumber": "${{ github.event.pull_request.number || 'N/A' }}",
+          "repository": "${{ github.repository }}",
+          "branch": "${{ github.head_ref || github.ref_name }}",
+          "commit": "${{ github.sha }}",
+          "totalDuration": 40000,
+          "gradle": {
+          "tasks": [
+          {"module": "app:module-main", "duration": 25000, "notCacheable": false},
+          {"module": "library:utility", "duration": 10000, "notCacheable": false},
+          {"module": "test-data", "duration": 5000, "notCacheable": true}
+              ]
+          },
+          "cocoapods": {
+          "pods": []
+          }
+          }
+          EOF
           echo "Finished generating build-data.json"
 
       # Step 3: Send the JSON data to the n8n Webhook
