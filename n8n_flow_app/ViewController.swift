@@ -11,9 +11,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("hello did load");
+        self.testFeature()
     }
-
+    
+ func testFeature() {
+        print("hello world");
+    }
 
 }
 

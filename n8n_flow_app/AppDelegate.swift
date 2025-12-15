@@ -11,8 +11,6 @@ import Sentry
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -21,10 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 options.releaseName = "n8n_flow_app@1.0.0+1"
                 options.debug = true
             }
-        
+        self.testSentrylog()
         return true
     }
 
+    
+    func testSentrylog() {
+        let logger = SentrySDK.logger
+
+        logger.info("Sending a test info log")
+
+        logger.warn("Sending a test warning log", attributes: [
+            "log_type": "test",
+        ])
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
